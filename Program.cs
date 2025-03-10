@@ -175,6 +175,7 @@ namespace DynDns_Client
                 //trayIcon.Visible = false;
                 var f1 = new Form1(globals);
                 f1.SaveAndStartTriggered += F1_SaveAndStartTriggered;
+                f1.SaveTriggered += F1_SaveTriggered; ;
                 f1.StopTriggered += F1_StopTriggered;
                 FormCollection frm = Application.OpenForms;
 
@@ -188,6 +189,11 @@ namespace DynDns_Client
                     frm[0]?.Activate();
                 }
                 //Application.Run();
+            }
+
+            private void F1_SaveTriggered()
+            {
+                SaveToRegistry();
             }
 
             private void F1_StopTriggered()

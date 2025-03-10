@@ -9,6 +9,7 @@ namespace DynDns_Client
     {
         public Globals Globals { get; set; }
         public event Action? SaveAndStartTriggered;
+        public event Action? SaveTriggered;
         public event Action? StopTriggered;
         public Form1(Globals globals)
         {
@@ -89,10 +90,12 @@ namespace DynDns_Client
             if (rk != null)
             {
                 if (startWithWindowsCheckbox.Checked)
-                    rk.SetValue("DynDnsClient", Application.ExecutablePath);
+                    rk.SetValue("DynDnsClient", Application.ExecutablePath + " -hidden");
                 else
                     rk.DeleteValue("DynDnsClient", false);
             }
+            Globals.StartWithWindows = startWithWindowsCheckbox.Checked;
+            SaveTriggered?.Invoke();
         }
     }
 }
