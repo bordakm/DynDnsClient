@@ -47,9 +47,9 @@
             // 
             // startButton
             // 
-            startButton.Location = new Point(12, 151);
+            startButton.Location = new Point(12, 179);
             startButton.Name = "startButton";
-            startButton.Size = new Size(273, 23);
+            startButton.Size = new Size(307, 23);
             startButton.TabIndex = 0;
             startButton.Text = "Mentés és indítás";
             startButton.UseVisualStyleBackColor = true;
@@ -74,10 +74,10 @@
             // 
             // passwordField
             // 
-            passwordField.Location = new Point(95, 42);
+            passwordField.Location = new Point(91, 42);
             passwordField.Name = "passwordField";
             passwordField.PasswordChar = '*';
-            passwordField.Size = new Size(224, 23);
+            passwordField.Size = new Size(228, 23);
             passwordField.TabIndex = 3;
             // 
             // label2
@@ -93,7 +93,7 @@
             // 
             startWithWindowsCheckbox.AutoSize = true;
             startWithWindowsCheckbox.Enabled = false;
-            startWithWindowsCheckbox.Location = new Point(16, 120);
+            startWithWindowsCheckbox.Location = new Point(16, 148);
             startWithWindowsCheckbox.Name = "startWithWindowsCheckbox";
             startWithWindowsCheckbox.Size = new Size(210, 19);
             startWithWindowsCheckbox.TabIndex = 5;
@@ -113,7 +113,7 @@
             // 
             // intervalMinutesInput
             // 
-            intervalMinutesInput.Location = new Point(129, 80);
+            intervalMinutesInput.Location = new Point(129, 108);
             intervalMinutesInput.Maximum = new decimal(new int[] { 1440, 0, 0, 0 });
             intervalMinutesInput.Minimum = new decimal(new int[] { 15, 0, 0, 0 });
             intervalMinutesInput.Name = "intervalMinutesInput";
@@ -124,7 +124,7 @@
             // unhidePasswordCheckbox
             // 
             unhidePasswordCheckbox.AutoSize = true;
-            unhidePasswordCheckbox.Location = new Point(325, 44);
+            unhidePasswordCheckbox.Location = new Point(93, 71);
             unhidePasswordCheckbox.Name = "unhidePasswordCheckbox";
             unhidePasswordCheckbox.Size = new Size(93, 19);
             unhidePasswordCheckbox.TabIndex = 9;
@@ -135,7 +135,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 82);
+            label3.Location = new Point(12, 110);
             label3.Name = "label3";
             label3.Size = new Size(111, 15);
             label3.TabIndex = 10;
@@ -144,7 +144,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(192, 82);
+            label4.Location = new Point(192, 110);
             label4.Name = "label4";
             label4.Size = new Size(30, 15);
             label4.TabIndex = 11;
@@ -153,7 +153,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(291, 155);
+            label5.Location = new Point(12, 205);
             label5.Name = "label5";
             label5.Size = new Size(47, 15);
             label5.TabIndex = 12;
@@ -162,27 +162,27 @@
             // statusLabel
             // 
             statusLabel.AutoSize = true;
-            statusLabel.Location = new Point(344, 155);
+            statusLabel.Location = new Point(65, 205);
             statusLabel.Name = "statusLabel";
             statusLabel.Size = new Size(0, 15);
             statusLabel.TabIndex = 13;
             // 
             // logTextBox
             // 
-            logTextBox.Location = new Point(420, 12);
+            logTextBox.Location = new Point(336, 12);
             logTextBox.Multiline = true;
             logTextBox.Name = "logTextBox";
             logTextBox.PlaceholderText = "Itt fognak a naplóbejegyzések megjelenni..";
             logTextBox.ReadOnly = true;
             logTextBox.ScrollBars = ScrollBars.Vertical;
-            logTextBox.Size = new Size(309, 181);
+            logTextBox.Size = new Size(311, 190);
             logTextBox.TabIndex = 14;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(749, 209);
+            ClientSize = new Size(662, 243);
             Controls.Add(logTextBox);
             Controls.Add(statusLabel);
             Controls.Add(label5);
