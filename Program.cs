@@ -47,6 +47,7 @@ namespace DynDns_Client
             private NotifyIcon trayIcon;
             private Globals globals;
             private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            private string previousIp = "";
             public MyCustomApplicationContext()
             {
                 globals = new Globals
@@ -107,49 +108,55 @@ namespace DynDns_Client
                     //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(@"http://localhost:8080");
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(@"https://myip.dyndns.hu/");
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                    string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                    string ipContent = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-                    globals.LogData += GetCurrentShortDateTime() + $" Lekért IP: {content}" + Environment.NewLine;
+                    globals.LogData += GetCurrentShortDateTime() + $" Lekért IP: {ipContent}" + Environment.NewLine;
                     UpdateLogs();
 
-                    globals.LogData += GetCurrentShortDateTime() + $" IP beállítása: {content}" + Environment.NewLine;
-                    UpdateLogs();
-
-                    HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create($"https://dyndns.hu/update?hostname={globals.Domain}&username={globals.Domain}&myip={content}&password={globals.Password}");
-                    try
+                    if (ipContent == previousIp)
                     {
-                        HttpWebResponse response2 = (HttpWebResponse)request2.GetResponse();
-                        string content2 = new StreamReader(response2.GetResponseStream()).ReadToEnd();
-                        if (content2 == "good" || content2 == "nochg\n" || content2.StartsWith("good "))
-                        {
-                            globals.LogData += GetCurrentShortDateTime() + $" IP beállítása sikeres" + Environment.NewLine;
-                            UpdateLogs();
-                        }
-                        else
-                        {
-                            globals.LogData += GetCurrentShortDateTime() + $" IP beállítása sikertelen, ismeretlen hiba" + Environment.NewLine;
-                            UpdateLogs();
-                        }
-
+                        globals.LogData += GetCurrentShortDateTime() + $" Nem változott az IP." + Environment.NewLine;
+                        UpdateLogs();
+                        return;
                     }
-                    catch (WebException ex)
+                    else
                     {
+                        globals.LogData += GetCurrentShortDateTime() + $" Új IP, beállítása..." + Environment.NewLine;
+                        UpdateLogs();
+                        previousIp = ipContent;
 
-                        if (ex.Response is HttpWebResponse && (ex.Response as HttpWebResponse).StatusCode == HttpStatusCode.Unauthorized)
+                        HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create($"https://dyndns.hu/update?hostname={globals.Domain}&username={globals.Domain}&myip={ipContent}&password={globals.Password}");
+                        try
                         {
-                            globals.LogData += GetCurrentShortDateTime() + $" IP beállítása sikertelen: hibás domain vagy jelszó" + Environment.NewLine;
-                            UpdateLogs();
+                            HttpWebResponse response2 = (HttpWebResponse)request2.GetResponse();
+                            string content2 = new StreamReader(response2.GetResponseStream()).ReadToEnd();
+                            if (content2 == "good" || content2 == "nochg\n" || content2.StartsWith("good "))
+                            {
+                                globals.LogData += GetCurrentShortDateTime() + $" IP beállítása sikeres" + Environment.NewLine;
+                                UpdateLogs();
+                            }
+                            else
+                            {
+                                globals.LogData += GetCurrentShortDateTime() + $" IP beállítása sikertelen, ismeretlen hiba" + Environment.NewLine;
+                                UpdateLogs();
+                            }
+
                         }
-                        else
+                        catch (WebException ex)
                         {
-                            globals.LogData += GetCurrentShortDateTime() + $" IP beállítása sikertelen: ismeretlen hiba" + Environment.NewLine;
-                            UpdateLogs();
+
+                            if (ex.Response is HttpWebResponse && (ex.Response as HttpWebResponse).StatusCode == HttpStatusCode.Unauthorized)
+                            {
+                                globals.LogData += GetCurrentShortDateTime() + $" IP beállítása sikertelen: hibás domain vagy jelszó" + Environment.NewLine;
+                                UpdateLogs();
+                            }
+                            else
+                            {
+                                globals.LogData += GetCurrentShortDateTime() + $" IP beállítása sikertelen: ismeretlen hiba" + Environment.NewLine;
+                                UpdateLogs();
+                            }
                         }
-
-
                     }
-
-
                 }
             }
             private void UpdateLogs()
