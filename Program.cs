@@ -120,7 +120,7 @@ namespace DynDns_Client
                     {
                         HttpWebResponse response2 = (HttpWebResponse)request2.GetResponse();
                         string content2 = new StreamReader(response2.GetResponseStream()).ReadToEnd();
-                        if (content2 == "good" || content2 == "nochg\n")
+                        if (content2 == "good" || content2 == "nochg\n" || content2.StartsWith("good "))
                         {
                             globals.LogData += GetCurrentShortDateTime() + $" IP beállítása sikeres" + Environment.NewLine;
                             UpdateLogs();
